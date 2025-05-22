@@ -1,43 +1,47 @@
 package com.techlab.negocio.producto;
 
+
 public class Producto {
-    // Atributos privados para aplicar el principio de encapsulamiento
-    private int id;
+    private static long contadorId = 1;
+    private static int contadorProductos = 0;
+
+    private long id;
     private String nombre;
     private double precio;
     private int cantidadEnStock;
 
-//constructor con parametros
-
-
-    public Producto(int id, String nombre, double precio, int cantidadEnStock) {
-        this.id = id;
+    public Producto(String nombre, double precio, int cantidadEnStock) {
+        this.id = contadorId++;; // Se genera ID automáticamente
         this.nombre = nombre;
         this.precio = precio;
         this.cantidadEnStock = cantidadEnStock;
+
+        contadorProductos++; // Se cuenta el producto creado
     }
 
-    public int getId() {
+
+    public static int getContadorProductos() {
+        return contadorProductos;
+    }
+
+    public long getId() {
         return id;
     }
 
-   // public void setId(int id) {
-   //     this.id = id;
-   // }
 
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
-        // Podemos verificar que el nombre no esté vacío
         if (nombre != null && !nombre.trim().isEmpty()) {
             this.nombre = nombre;
         }
     }
 
-    public double getPrecio() {
 
+
+    public double getPrecio() {
         return precio;
     }
 
@@ -45,12 +49,12 @@ public class Producto {
         if (precio >= 0) {
             this.precio = precio;
         }
-
     }
 
     public int getCantidadEnStock() {
         return cantidadEnStock;
     }
+
 
     public void setCantidadEnStock(int cantidadEnStock) {
         if (cantidadEnStock >= 0) {
@@ -58,12 +62,29 @@ public class Producto {
         }
     }
 
-    //metodo mostrar
+    public static void disminuirContadorProductos() {
+        if (contadorProductos > 0) {
+            contadorProductos--;
+        }
+    }
 
-    // Método para mostrar la información del artículo
+    //para reducir el stock
+
+    public void reducirStock(int cantidad) {
+        this.cantidadEnStock -= cantidad;
+    }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", precio=" + precio +
+                ", stock=" + cantidadEnStock +
+                '}';
+    }
+
     public void mostrar() {
-        // Este método puede ser sobrescrito por subclases (polimorfismo)
         System.out.println("ID: " + id + " | Nombre: " + nombre + " | Precio: $" + precio + " | Stock: " + cantidadEnStock);
     }
 }
-
