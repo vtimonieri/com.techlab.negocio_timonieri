@@ -2,31 +2,36 @@ package com.techlab.negocio.producto;
 
 
 public class Producto {
-    private static long contadorId = 1;
-    private static int contadorProductos = 0;
-
-    private long id;
-    private String nombre;
+  private static int contadorid=1;
+  private static int contadorProductos = 0;
+    private int id;
+       private String nombre;
     private double precio;
     private int cantidadEnStock;
 
+
     public Producto(String nombre, double precio, int cantidadEnStock) {
-        this.id = contadorId++;; // Se genera ID automáticamente
+        this.id =contadorid++;
         this.nombre = nombre;
         this.precio = precio;
         this.cantidadEnStock = cantidadEnStock;
 
-        contadorProductos++; // Se cuenta el producto creado
+       // contadorId++;
     }
 
+
+//getter y setter
+
+    //le hago un get al contador de productos
+    // Getter para el atributo id (solo lectura)
+    public int getId() {
+        return id;
+    }
 
     public static int getContadorProductos() {
         return contadorProductos;
     }
 
-    public long getId() {
-        return id;
-    }
 
 
     public String getNombre() {
@@ -34,57 +39,44 @@ public class Producto {
     }
 
     public void setNombre(String nombre) {
-        if (nombre != null && !nombre.trim().isEmpty()) {
-            this.nombre = nombre;
-        }
+        this.nombre = nombre;
     }
-
-
 
     public double getPrecio() {
         return precio;
     }
 
     public void setPrecio(double precio) {
-        if (precio >= 0) {
-            this.precio = precio;
-        }
+        this.precio = precio;
     }
 
     public int getCantidadEnStock() {
         return cantidadEnStock;
     }
 
-
     public void setCantidadEnStock(int cantidadEnStock) {
-        if (cantidadEnStock >= 0) {
-            this.cantidadEnStock = cantidadEnStock;
-        }
-    }
-
-    public static void disminuirContadorProductos() {
-        if (contadorProductos > 0) {
-            contadorProductos--;
-        }
-    }
-
-    //para reducir el stock
-
-    public void reducirStock(int cantidad) {
-        this.cantidadEnStock -= cantidad;
+        this.cantidadEnStock = cantidadEnStock;
     }
 
     @Override
     public String toString() {
-        return "Producto{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
+        return "Producto{+ id =" + id +
+                " nombre=" + nombre + '\'' +
                 ", precio=" + precio +
                 ", stock=" + cantidadEnStock +
                 '}';
     }
 
-    public void mostrar() {
-        System.out.println("ID: " + id + " | Nombre: " + nombre + " | Precio: $" + precio + " | Stock: " + cantidadEnStock);
+    public void reducirStock(int cantidad) {
+        if (cantidad > this.cantidadEnStock) {
+            throw new RuntimeException("Stock insuficiente para el producto: " + nombre);
+        }
+        this.cantidadEnStock -= cantidad;
     }
+
+
+    public void mostrar(int posicion) {
+        System.out.println(posicion + ". ID: " + id + " | Nombre: " + nombre + " | Precio: $" + precio + " | Stock: " + cantidadEnStock);
+    }
+
 }

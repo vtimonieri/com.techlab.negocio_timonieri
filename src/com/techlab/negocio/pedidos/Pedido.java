@@ -8,73 +8,63 @@ import com.techlab.negocio.cliente.Cliente;
 import com.techlab.negocio.excepciones.StockInsuficienteException;
 
 public class Pedido {
-    private static long contadorId = 1;
-    private static int contadorPedidos = 0;
-    private long id;
-    private List<LineaPedido> lineas;
-    private Cliente cliente;
+    private static int contadorid=1;
+    private static int  contadorPedidos = 0;
+    private  int id;
+    private ArrayList<LineaPedido> linea = new ArrayList<LineaPedido>();
+    private  String  cliente;
 
-    public Pedido(Cliente cliente) {
-        this.id = contadorId++;
-        this.lineas = new ArrayList<>();
+//constructor
+
+
+    public Pedido(int id, ArrayList<LineaPedido> linea, String cliente) {
+        this.id = contadorid++;
+        this.linea = linea;
         this.cliente = cliente;
-
-        contadorPedidos++; // Se cuenta el producto creado
-
-
     }
 
-    //getter y setter
+    //getter and setter
 
-
-    public  long getId() {
-        return id;
-    }
 
     public static int getContadorPedidos() {
         return contadorPedidos;
     }
 
-    public List<LineaPedido> getLineas() {
-        return lineas;
+    public int getId() {
+        return id;
     }
 
-    public Cliente getCliente() {
+    public ArrayList<LineaPedido> getLinea() {
+        return linea;
+    }
+
+    public String getCliente() {
         return cliente;
     }
+    //setter
 
-    public void agregarProducto(Producto producto, int cantidad) throws StockInsuficienteException {
-        if (cantidad > producto.getCantidadEnStock()) {
-            throw new StockInsuficienteException("Stock insuficiente para el producto: " + producto.getNombre());
-        }
-        lineas.add(new LineaPedido(producto, cantidad));
-        producto.reducirStock(cantidad); // este método lo podés agregar en Producto
+
+    public void setLinea(ArrayList<LineaPedido> linea) {
+        this.linea = linea;
     }
 
-    public double calcularTotal() {
-        double total = 0;
-        for (LineaPedido linea : lineas) {
-            total += linea.calcularSubtotal();
-        }
-        return total;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
+
     @Override
     public String toString() {
         return "Pedido{" +
                 "id=" + id +
-                ", cliente='" + cliente + '\'' +
-                ", lineapedido=" + lineas +
+                ", lineaPedido='" + linea + '\'' +
+                ",cliente='"+ cliente+
                 '}';
     }
 
     public void mostrar() {
-        System.out.println("ID: " + id + " | cliente: " + cliente + " | lineapedido: " + lineas);
+        System.out.println("ID: " + this.id + " | lineaPedido: " + this.linea + " | cliente:" + this.cliente);
     }
 
-
-
-
-
-
 }
+
 

@@ -1,3 +1,6 @@
 module com.techlab.negocio {
-    // por ahora está vacío, y está bien así
+    exports com.techlab.negocio.pedidos;
+    exports com.techlab.negocio.producto;
+    exports com.techlab.negocio.cliente;
+    exports com.techlab.negocio.excepciones;
 }

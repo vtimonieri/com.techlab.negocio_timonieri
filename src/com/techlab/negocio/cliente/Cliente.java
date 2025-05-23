@@ -1,19 +1,19 @@
 package com.techlab.negocio.cliente;
 
 public class Cliente {
-    private static long contadorId = 1;
-    private long id;
+
+    private int id;
     private String nombre;
     private String email;
 
     //constructor con parametros
 
-
-    public Cliente(String nombre, String email) {
-        this.id=contadorId++;
+    public Cliente(int id, String nombre, String email) {
+        this.id = id;
         this.nombre = nombre;
         this.email = email;
     }
+
 
     //getter and setter
 
@@ -58,6 +58,11 @@ public class Cliente {
                 ",email='"+ email+
                 '}';
     }
+
+    public void mostrar() {
+        System.out.println("ID: " + this.id + " | Nombre: " + this.nombre + " | email:" + this.email);
+    }
+
 }
 
 
